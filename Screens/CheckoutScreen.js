@@ -1,0 +1,216 @@
+import { StyleSheet, Text, SafeAreaView, View, ImageBackground, Image, Alert } from "react-native";
+import {Pressable, FlatList} from 'react-native';
+import React from "react";
+import Images from "../assets/Images";
+import CartItem from "../Components/CartItem";
+import COLORS from '../assets/colors';
+
+const CheckoutScreen = ({navigation, route}) => {
+    const renderItem = ({ item }) => (
+      <CartItem name={item.title} />
+      );
+      function Header(){
+        return(
+          <View style={{flexDirection: 'row', justifyContent:"space-between"}} >
+          <Pressable onPress={() => threeButtonAlert(navigation)}>
+              <Image source={Images.HomeButton} style={styles.topbutton} />
+          </Pressable>
+          <Pressable onPress={() => navigation.goBack()}>
+                <Image source={Images.HomeButton} style={styles.topbutton} />
+          </Pressable>
+          <Image
+            style={{ width: 200, height: 60}}
+            source={Images.YourCartTitle}
+          />
+          <Pressable onPress={() => navigation.navigate('FAQScreen')}>
+            <Image source={Images.FAQButton} style={styles.topbutton} />
+         </Pressable>
+            </View>
+        )
+      }
+      const threeButtonAlert = (navigation) => {
+        Alert.alert(
+          "Do you want to abandon your cart?",
+          "",
+          [
+            {
+              text: "Yes, forget about this cart!",
+              onPress: () => navigation.navigate('HomeScreen')
+            },
+            { text: "No, please save my cart!", onPress: () =>  navigation.navigate('HomeScreen') },
+            {
+              text: "Cancel",
+              onPress: () => console.log("Cancel Pressed"),
+              style: "cancel"
+            }
+            
+          ]
+        );
+      }
+  return (
+    <SafeAreaView style={styles.container}> 
+      <ImageBackground source={Images.ConfettiBackground} resizeMode="cover" style={styles.back}>
+        {/* <Image source={Images.YourCartTitle} style={styles.title} /> */}
+        <Header></Header>
+        <View style={styles.shoppingcart}>
+            <Image style={styles.cartimage} source= {Images.Cart} />
+        </View>
+        <View style={styles.list}>
+        <FlatList
+          data={route.params.cart}
+          renderItem={renderItem}
+          keyExtractor={item => item.id}
+        />
+        </View>
+        <View style={styles.bottom}>
+                <View style={styles.priceWrapper}>
+                    <View style={styles.totalPrice}>
+                        <Text style={styles.priceText}>Total: $</Text>
+                    </View>
+                </View>
+                <View style={styles.buttonWrapper}>
+                    
+                    <Pressable style={styles.button} onPress={() => navigation.navigate('CheckoutInfo')}>
+                        <Image source={Images.CheckoutButton} style={styles.checkout}/>
+                    </Pressable>
+                                      
+                </View>
+                
+            </View>
+      </ImageBackground> 
+      
+    </SafeAreaView>
+  );
+};
+
+export default CheckoutScreen;
+
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center'
+      },
+    back: {
+      width: '100%',
+      height: '100%'
+    },
+    title: {
+      width: 200,
+      height: 60,
+      alignSelf: 'center'
+    },
+    shoppingcart: {
+      width: 200,
+      height: 200,
+      margin: 20,
+      alignSelf: 'center'
+  },
+  cartimage: {
+      flex: 1,
+      width: null,
+      height: null,
+      resizeMode: 'contain',
+  },
+  list: {
+    display: 'flex',
+    alignItems: 'center'
+  },
+  priceWrapper: {
+    display: 'flex',
+    width: '100%',
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
+},
+totalPrice: {
+    borderRadius: 20,
+    backgroundColor: COLORS.secondaryPink,
+    color: COLORS.mainPink,
+    padding: 10,
+    margin: 5,
+},
+priceText: {
+    color: COLORS.mainPink,
+    fontSize: 25,
+},
+bottom: {
+    marginBottom: 30,
+    display: 'flex',
+    flexDirection: 'column',
+},
+buttonWrapper: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'center',
+    
+},
+button: {
+  shadowColor: COLORS.black,
+  shadowOffset: { width: 0, height: 1 },
+  shadowOpacity: 0.8,
+  shadowRadius: 1,
+  margin: 5,
+},
+checkout: {
+  width: 80,
+  height: 80,
+  borderRadius: 5,
+},
+topbutton: {
+    height: 50,
+    aspectRatio: 1,
+  },
+
+});
+
+
+
+
+
+// import { StyleSheet, Text, SafeAreaView, View } from "react-native";
+// import {Pressable, FlatList} from 'react-native';
+// import React from "react";
+
+// const CheckoutScreen = ({navigation, route}) => {
+//     const renderItem = ({ item }) => (
+//     <View>
+//         <Text>{item.title}</Text>
+//     </View>
+//       );
+//   return (
+//     <SafeAreaView>  
+//       <Pressable onPress={() => navigation.navigate('TabNav')}>
+//         <Text>Checkout Screen! Go back to tabs</Text>
+//       </Pressable>
+//       <FlatList
+//         data={route.params.cart}
+//         renderItem={renderItem}
+//         keyExtractor={item => item.id}
+//       />
+//     </SafeAreaView>
+//   );
+// };
+
+// <View style={styles.item} >
+//         <View style={styles.horizContainer}>
+//             <Text style={styles.maintext}>{props.name}</Text>
+//             <View style={styles.editAndPrice}>
+//                 <Pressable style={styles.pressable} onPress={() => console.log('edit was pressed!')}>
+//                     <Text style={styles.pressText}>edit</Text>
+//                 </Pressable>
+//                 <Pressable style={styles.pressable} onPress={() => console.log('remove was pressed!')}>
+//                     <Text style={styles.pressText}>remove</Text>
+//                 </Pressable>
+//                 <Text style={styles.maintext}>{'$'}</Text>
+//             </View>
+//         </View>
+//     </View>
+
+// export default CheckoutScreen;
+
+// const styles = StyleSheet.create({
+//     container: {
+//         flex: 1,
+//       },
+
+// });
