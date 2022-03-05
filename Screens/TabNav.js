@@ -6,23 +6,9 @@ import { FontAwesome } from '@expo/vector-icons';
 import { Ionicons } from '@expo/vector-icons';
 import OptionsStack from './OptionsStack';
 import { NavigationContainer } from '@react-navigation/native';
-
-function VideoScreen() {
-    return (
-      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-        <Text>Video Task!</Text>
-      </View>
-    );
-  }
-  
-  function AccomodationsScreen() {
-    return (
-      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-        <Text>Accomodations Task!</Text>
-      </View>
-    );
-  }
-
+import VideoScreen from './VideoScreen';
+import Accomodations from "./Accommodations";
+import COLORS from '../assets/colors';
 const Tab = createBottomTabNavigator();
 const TabNav = () => {
   //props.route.params();
@@ -44,14 +30,14 @@ const TabNav = () => {
             // You can return any component that you like here!
             return <FontAwesome name={iconName} size={size} color={color} />;
           },
-          tabBarActiveTintColor: 'black',
-          tabBarInactiveTintColor: 'gray',
+          tabBarActiveTintColor: COLORS.mainPink,
+          tabBarInactiveTintColor: COLORS.purple,
           headerShown: false,
         })}
       >
         <Tab.Screen name= "Video" component={VideoScreen} />
         <Tab.Screen name= "Add-ons" component={OptionsStack} />
-        <Tab.Screen name= "Accomodate" component={AccomodationsScreen} />
+        <Tab.Screen name= "Accomodate" component={Accomodations} />
       </Tab.Navigator>
   );
 };

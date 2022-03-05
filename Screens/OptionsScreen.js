@@ -41,20 +41,23 @@ export default function OptionsScreen() {
 // make header function
 function Header(){
   return(
-    <View style={{flexDirection: 'row', alignItems:"space-between"}} >
+    <View style={headerStyles.headerContainer} >
     <Pressable onPress={() => threeButtonAlert(navigation)}>
-        <Image source={Images.HomeButton} style={styles.topbutton} />
+        <Image source={Images.HomeButton} style={headerStyles.topbutton} />
     </Pressable>
     <Image
-      style={{ width: 200, height: 20}}
+      style={{ width: 250, height: 28}}
       source={Images.YTLogo}
     />
-    <Pressable onPress={() => navigation.navigate('FAQScreen')}>
-          <Image source={Images.FAQButton} style={styles.topbutton} />
-    </Pressable>
-    <Pressable onPress={() => navigation.navigate('CheckoutScreen', {cart: cart})}>
-      <Image source={Images.HomeButton} style={styles.topbutton} />
-   </Pressable>
+    <View style={headerStyles.doublebutton}>
+        <Pressable onPress={() => navigation.navigate('FAQScreen')}>
+              <Image source={Images.FAQButton} style={headerStyles.topbutton} />
+        </Pressable>
+        <Pressable onPress={() => navigation.navigate('CheckoutScreen', {cart: cart})}>
+          <Image source={Images.CartTopNav} style={headerStyles.topbuttonCart} />
+        </Pressable>
+    </View>
+    
       </View>
   )
 }
@@ -92,10 +95,11 @@ const threeButtonAlert = (navigation) => {
       setCart([...cart, item]);
     }
     return (
-      <Pressable onPress={() => {navigation.navigate(item.screenName, {
-        location: item,
-        cart: cart
-      })}}>
+      // <Pressable onPress={() => {navigation.navigate(item.screenName, {
+      //   location: item,
+      //   cart: cart
+      // })}}>
+        <Pressable>
         <View key={item.id} style={styles.destinations}>
           <Image source={item.image} style={styles.destinationImages}></Image>
           <View style={styles.destinationText}>
@@ -106,8 +110,12 @@ const threeButtonAlert = (navigation) => {
             <View style={styles.detailsText}>
               <Pressable onPress= {() => 
               press()
-              }>
-                <ImageBackground source={Images.AddToCart} style={styles.addbutton}/>
+              }
+              style={styles.pressablewrap}>
+                <View style={styles.buttonWrap}>
+                  <Image source={Images.AddToCart} style={styles.addbutton}  />
+
+                </View>
                 {/* <Text>Add to Cart</Text> */}
               </Pressable>
             </View>
@@ -133,7 +141,7 @@ const threeButtonAlert = (navigation) => {
               style={[styles.button, styles.buttonClose]}
               onPress={() => setModalVisible(!modalVisible)}
             >
-              <Text style={styles.textStyle}>OK :)</Text>
+              <Text style={styles.textStyle}>OK!</Text>
             </Pressable>
           </View>
         </View>
@@ -147,34 +155,68 @@ const threeButtonAlert = (navigation) => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <Header></Header>
+      <ImageBackground source={Images.ConfettiBackground} style={styles.background}>
+        
+        <Header></Header>
 
-      <View style={styles.horizontalScroll}>
+          <View style={styles.horizontalScroll}>
 
-        <FlatList
-          horizontal
-          showsHorizontalScrollIndicator={false}
-          data={OPTIONS}
-          renderItem={renderItem}
-        />
-      </View>
-    </SafeAreaView>
+            <FlatList
+              horizontal
+              showsHorizontalScrollIndicator={false}
+              data={OPTIONS}
+              renderItem={renderItem}
+            />
+          </View>
+          
+      </ImageBackground>
+      </SafeAreaView>
+      
   )
 }
+
+const headerStyles = StyleSheet.create({
+  headerContainer: {
+    flexDirection: 'row', 
+    justifyContent:"space-around", 
+    alignItems: 'center',
+    backgroundColor: COLORS.white
+  },
+  doublebutton: {
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center'
+  } ,
+  topbutton: {
+    height: 50,
+    aspectRatio: 1,
+  },
+  toptitle: {
+    width: 250,
+    height: 30, 
+    alignSelf: 'center'
+  }, 
+  topbuttonCart: {
+    height: 50,
+    width: 30
+  }
+});
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent:"space-between",
-    backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
     display: 'flex',
+    backgroundColor: COLORS.white
   },
   background: {
     width: '100%',
     height: '100%',
 },
+
   horizontalScroll: {
     width: '85%',
     flex: 8,
@@ -187,6 +229,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     borderWidth: 0.5,
     borderColor: 'gray',
+    backgroundColor: COLORS.white
   },
   destinationImages: {
     height: 290,
@@ -203,10 +246,7 @@ const styles = StyleSheet.create({
     margin: 15,
     marginTop: 20,
   },
-  topbutton: {
-    height: 50,
-    aspectRatio: 1,
-  },
+  
   destinationTitle: {
     color: COLORS.purple,
     fontWeight: 'bold',
@@ -255,7 +295,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#F194FF",
   },
   buttonClose: {
-    backgroundColor: "#2196F3",
+    backgroundColor: COLORS.purple,
   },
   textStyle: {
     color: "white",
@@ -267,13 +307,22 @@ const styles = StyleSheet.create({
     textAlign: "center"
   },
   addbutton: {
-    width: 110,
+    width: 120,
     height: 40,
-    borderRadius: 200,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 20,
+    
+  },
+  pressablewrap: {
+    width: 120,
+    height: 40,
+  },
+  buttonWrap: {
     shadowColor: COLORS.black,
     marginBottom: 100,
     shadowOffset: { width: 0, height: 1 },
     shadowOpacity: 0.8,
     shadowRadius: 1, 
-  },
+  }
 });
