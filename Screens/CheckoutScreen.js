@@ -1,13 +1,39 @@
 import { StyleSheet, Text, SafeAreaView, View, ImageBackground, Image, Alert } from "react-native";
 import {Pressable, FlatList} from 'react-native';
-import React from "react";
+import {React, useState} from "react";
 import Images from "../assets/Images";
 import CartItem from "../Components/CartItem";
 import COLORS from '../assets/colors';
 
 const CheckoutScreen = ({navigation, route}) => {
-    const renderItem = ({ item }) => (
-      <CartItem name={item.title} />
+  const [cart, setCart] = useState(route.params.cart);
+
+  function press(index){
+    route.params.deleteItem(index)
+    let cartCopy = cart;
+    cartCopy.splice(index, 1);
+    setCart([...cartCopy]);
+    //setTimesPressed((current) => current + 1);
+  }
+    const renderItem = ({ item, index }) => (
+
+      <View style={styles.item} >
+      <View style={styles.horizContainer}>
+          <Text style={styles.maintext}>{item.title}</Text>
+          <View style={styles.editAndPrice}>
+              <Pressable style={styles.pressable} onPress={() => console.log('edit was pressed!')}>
+                  <Text style={styles.pressText}>edit</Text>
+              </Pressable>
+              <Pressable style={styles.pressable} onPress={() => press(index)}>
+                  <Text style={styles.pressText}>remove</Text>
+              </Pressable>
+              <Text style={styles.maintext}>{'$'}</Text>
+          </View>
+      </View>
+    </View>
+
+
+      //<CartItem name={item.title} deleteItem = {route.params.deleteItem} index = {index} />
       );
       function Header(){
         return(
@@ -50,6 +76,8 @@ const CheckoutScreen = ({navigation, route}) => {
           ]
         );
       }
+      //Need to find the index we want to delete: some kind of search again- iterating through cart to find index of item we want to delete
+
   return (
     <SafeAreaView style={styles.container}> 
       <ImageBackground source={Images.ConfettiBackground} resizeMode="cover" style={styles.back}>
@@ -60,7 +88,7 @@ const CheckoutScreen = ({navigation, route}) => {
         </View>
         <View style={styles.list}>
         <FlatList
-          data={route.params.cart}
+          data={cart}
           renderItem={renderItem}
           keyExtractor={item => item.id}
         />
@@ -180,58 +208,43 @@ checkout: {
   height: 50,
   borderRadius: 20,
 },
+item: {
+    borderRadius: 20,
+    width: 350,
+    backgroundColor: COLORS.secondaryPink,
+    justifyContent: 'center',
+    color: COLORS.mainPink,
+    padding: 5,
+    margin: 5,
+    display: 'flex',
+    flexDirection: 'column',
+  },
+  horizContainer: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center'
+
+  },
+  editAndPrice: {
+    display: 'flex',
+    flexDirection: 'row',
+    margin: 5,
+    alignItems: 'center',
+  },
+  pressable: {
+    paddingHorizontal: 5,    
+  },
+  pressText: {
+    textDecorationLine: 'underline',
+    textDecorationStyle: 'solid',
+  },
+  maintext: {
+    fontWeight: '700',
+    color: COLORS.mainPink,
+    fontSize: 20,
+
+}}
+);
 
 
-});
-
-
-
-
-
-// import { StyleSheet, Text, SafeAreaView, View } from "react-native";
-// import {Pressable, FlatList} from 'react-native';
-// import React from "react";
-
-// const CheckoutScreen = ({navigation, route}) => {
-//     const renderItem = ({ item }) => (
-//     <View>
-//         <Text>{item.title}</Text>
-//     </View>
-//       );
-//   return (
-//     <SafeAreaView>  
-//       <Pressable onPress={() => navigation.navigate('TabNav')}>
-//         <Text>Checkout Screen! Go back to tabs</Text>
-//       </Pressable>
-//       <FlatList
-//         data={route.params.cart}
-//         renderItem={renderItem}
-//         keyExtractor={item => item.id}
-//       />
-//     </SafeAreaView>
-//   );
-// };
-
-// <View style={styles.item} >
-//         <View style={styles.horizContainer}>
-//             <Text style={styles.maintext}>{props.name}</Text>
-//             <View style={styles.editAndPrice}>
-//                 <Pressable style={styles.pressable} onPress={() => console.log('edit was pressed!')}>
-//                     <Text style={styles.pressText}>edit</Text>
-//                 </Pressable>
-//                 <Pressable style={styles.pressable} onPress={() => console.log('remove was pressed!')}>
-//                     <Text style={styles.pressText}>remove</Text>
-//                 </Pressable>
-//                 <Text style={styles.maintext}>{'$'}</Text>
-//             </View>
-//         </View>
-//     </View>
-
-// export default CheckoutScreen;
-
-// const styles = StyleSheet.create({
-//     container: {
-//         flex: 1,
-//       },
-
-// });

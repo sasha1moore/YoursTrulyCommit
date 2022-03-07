@@ -10,7 +10,7 @@ export default function CartItem(props) {
                 <Pressable style={styles.pressable} onPress={() => console.log('edit was pressed!')}>
                     <Text style={styles.pressText}>edit</Text>
                 </Pressable>
-                <Pressable style={styles.pressable} onPress={() => console.log('remove was pressed!')}>
+                <Pressable style={styles.pressable} onPress={() => props.deleteItem(props.index)}>
                     <Text style={styles.pressText}>remove</Text>
                 </Pressable>
                 <Text style={styles.maintext}>{'$'}</Text>

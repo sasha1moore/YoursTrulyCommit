@@ -6,9 +6,9 @@ import { FontAwesome } from '@expo/vector-icons';
 import { Ionicons } from '@expo/vector-icons';
 import OptionsStack from './OptionsStack';
 import { NavigationContainer } from '@react-navigation/native';
-import VideoScreen from './VideoScreen';
 import Accomodations from "./Accommodations";
 import COLORS from '../assets/colors';
+import VideoStack from "./VideoStack";
 const Tab = createBottomTabNavigator();
 const TabNav = () => {
   //props.route.params();
@@ -35,7 +35,7 @@ const TabNav = () => {
           headerShown: false,
         })}
       >
-        <Tab.Screen name= "Video" component={VideoScreen} />
+        <Tab.Screen name= "Video" component={VideoStack} />
         <Tab.Screen name= "Add-ons" component={OptionsStack} />
         <Tab.Screen name= "Accomodate" component={Accomodations} />
       </Tab.Navigator>

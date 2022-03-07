@@ -4,25 +4,27 @@ import React from "react";
 import Images from '../assets/Images';
 import COLORS from "../assets/colors";
 
-const VideoScreen = ({navigation, route}) => {
+const VideoStart = ({navigation, route}) => {
     function Header(){
         return(
           <View style={headerStyles.headerContainer} >
-          <Pressable onPress={() => threeButtonAlert(navigation)}>
-              <Image source={Images.HomeButton} style={headerStyles.topbutton} />
-          </Pressable>
+    <Pressable onPress={() => threeButtonAlert(navigation)}>
+        <Image source={Images.HomeButton} style={headerStyles.topbutton} />
+    </Pressable>
           <Image
             style={{ width: 250, height: 28}}
             source={Images.YTLogo}
           />
           <View style={headerStyles.doublebutton}>
-              <Pressable onPress={() => navigation.navigate('FAQScreen')}>
-                    <Image source={Images.FAQButton} style={headerStyles.topbutton} />
-              </Pressable>
-              <Pressable onPress={() => navigation.navigate('CheckoutScreen', {cart: cart})}>
-                <Image source={Images.CartTopNav} style={headerStyles.topbutton} />
-              </Pressable>
-          </View>
+        <Pressable onPress={() => navigation.navigate('FAQScreen')}>
+              <Image source={Images.FAQButton} style={headerStyles.topbutton} />
+        </Pressable>
+        <Pressable onPress={() => navigation.navigate('CheckoutScreen', {cart: cart})}>
+        <Image source={Images.AddToCart} style={styles.addbutton}  />
+          <Image source={Images.CartTopNav} style={headerStyles.topbuttonCart} />
+        </Pressable>
+    </View>
+          
           
             </View>
         )
@@ -60,7 +62,7 @@ const VideoScreen = ({navigation, route}) => {
   );
 };
 
-export default VideoScreen;
+export default VideoStart;
 
 const headerStyles = StyleSheet.create({
     headerContainer: {
@@ -89,10 +91,7 @@ const headerStyles = StyleSheet.create({
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-      },
-
-      
-      
+      },  
     back: {
       width: '100%',
       height: '100%'

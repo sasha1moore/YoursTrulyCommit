@@ -38,6 +38,23 @@ const OPTIONS = [
 export default function OptionsScreen() {
   const navigation = useNavigation();
 
+  const findItemInArray = (array, title) => {
+    for (let i = 0; i < array.length; i++) {
+      if(array[i].title === title) {
+        return true;
+      }
+    }
+  
+    return false;
+  }
+
+   const deleteItem = (index) => {
+
+       let cartCopy = cart;
+         cartCopy.splice(index, 1);
+         setCart([...cartCopy]);
+       }
+
 // make header function
 function Header(){
   return(
@@ -53,7 +70,8 @@ function Header(){
         <Pressable onPress={() => navigation.navigate('FAQScreen')}>
               <Image source={Images.FAQButton} style={headerStyles.topbutton} />
         </Pressable>
-        <Pressable onPress={() => navigation.navigate('CheckoutScreen', {cart: cart})}>
+        {/* render as pressable or as an image..  */}
+        <Pressable onPress={() => navigation.navigate('CheckoutScreen', {cart: cart, deleteItem: deleteItem})}>
           <Image source={Images.CartTopNav} style={headerStyles.topbuttonCart} />
         </Pressable>
     </View>
@@ -87,12 +105,18 @@ const threeButtonAlert = (navigation) => {
   //this is whatever they've added to their cart
   const [cart, setCart] = useState([]);
   const [modalVisible, setModalVisible] = useState(false);
+  const [inCart, setInCart] = useState(false);
 
   const renderItem = ({ item }) => {
+
+    // leave for OH: how to find item in cart. 
+
     
     function press(){
       setModalVisible(true);
       setCart([...cart, item]);
+      //setButtonPressed(true);
+      //setTimesPressed((current) => current + 1);
     }
     return (
       // <Pressable onPress={() => {navigation.navigate(item.screenName, {
@@ -108,16 +132,29 @@ const threeButtonAlert = (navigation) => {
               <Text style={styles.destinationDescription}>{item.description}</Text>
             </View>
             <View style={styles.detailsText}>
-              <Pressable onPress= {() => 
-              press()
-              }
-              style={styles.pressablewrap}>
-                <View style={styles.buttonWrap}>
-                  <Image source={Images.AddToCart} style={styles.addbutton}  />
+            {/* if ({pressed}}) {
+                <Text>"Added to Cart!"</Text>
+            } */}
+              
+              
+                  {/* <Image source={Images.AddToCart} style={styles.addbutton}  /> */}
+            { findItemInArray(cart, item.title) && 
+                  <Image source={Images.Balloons} style={styles.addbutton}  />
+            }
 
-                </View>
-                {/* <Text>Add to Cart</Text> */}
+            {!findItemInArray(cart, item.title) &&
+            <View style={styles.buttonWrap}>
+              <Pressable onPress= {() => 
+                press()
+              } style={styles.pressablewrap}>
+              
+              <Image source={Images.AddToCart} style={styles.addbutton}  />
               </Pressable>
+              </View>
+    
+              }
+                {/* <Text>Add to Cart</Text> */}
+              
             </View>
             {/* <View style={styles.optionDetails}>
               <Text style={styles.detailsText}>Details</Text>
