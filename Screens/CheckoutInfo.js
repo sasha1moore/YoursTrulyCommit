@@ -60,6 +60,11 @@ const CheckoutInfo = ({navigation, route}) => {
             <Image source={Images.CheckoutBilling} style={{width: '100%', height: 170, borderRadius: 60, marginBottom: 10}} />
 
         </ScrollView>
+        <Pressable onPress= {() => navigation.navigate("ReviewOrderScreen")} style={styles.pressablewrap}>
+                <View style={styles.buttonWrap}>
+                    <Image source={Images.NextButton} style={styles.next}  />
+                </View>
+        </Pressable>
       </ImageBackground>
       
       
@@ -108,6 +113,27 @@ const styles = StyleSheet.create({
       width: 200,
       height: 60,
       alignSelf: 'center'
+    },
+    next: {
+      width: 120,
+      height: 50,
+      justifyContent: 'center',
+      alignItems: 'center',
+      borderRadius: 20,
+      
+    },
+    pressablewrap: {
+      width: 120,
+      height: 50,
+      alignSelf: 'center',
+      margin: 10
+    },
+    buttonWrap: {
+      shadowColor: COLORS.black,
+      marginBottom: 100,
+      shadowOffset: { width: 0, height: 1 },
+      shadowOpacity: 0.8,
+      shadowRadius: 1, 
     },
     
 

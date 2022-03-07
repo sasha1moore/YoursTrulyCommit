@@ -7,13 +7,9 @@ import TabNav from './Screens/TabNav';
 import CheckoutScreen from './Screens/CheckoutScreen';
 import CheckoutInfo from './Screens/CheckoutInfo';
 import FAQScreen from './Screens/FAQScreen'
-
-
-
-
-
-
-
+import ReviewOrder from './Screens/ReviewOrder';
+import ConfirmedOrder from './Screens/ConfirmedOrder';
+import NextSteps from './Screens/NextSteps';
 
 const Stack = createStackNavigator();
 
@@ -28,6 +24,9 @@ export default function App() {
       <Stack.Screen name="CheckoutScreen" component={CheckoutScreen} />
       <Stack.Screen name="CheckoutInfo" component={CheckoutInfo} />
       <Stack.Screen name="FAQScreen" component={FAQScreen} />
+      <Stack.Screen name="ReviewOrderScreen" component={ReviewOrder} />
+      <Stack.Screen name="ConfirmedOrderScreen" component={ConfirmedOrder} />
+      <Stack.Screen name="NextStepsScreen" component={NextSteps} />
       </Stack.Navigator>
     </NavigationContainer>
   );

@@ -22,5 +22,14 @@ export default Images = {
   CheckoutDate: require('./CheckoutScreenshots/date.png'),
   CheckoutPaymentMethod: require('./CheckoutScreenshots/paymethod.png'),
   CheckoutBilling: require('./CheckoutScreenshots/billing.png'),
-  FAQTitle: require('./faqtitle.png')
+  FAQTitle: require('./faqtitle.png'),
+  ConfirmOrderButton: require('./confirmOrderButton.png'),
+  NextButton: require('./nextButton.png'),
+  ReviewOrderTitle: require('./reviewOrderTitle.png'),
+  ConfirmedMessage: require('./confirmedOrderMessage.png'),
+  SeeNextSteps: require('./seeNextSteps.png'),
+  NextStepsTitle: require('./nextStepsTitle.png'),
+  NextStepsDirectPackage: require('./nextStepsDirect.png'),
+  NextStepsWellTakeCare: require('./nextStepsWellTakeCare.png'),
+  GoHomeButton: require('./goHomeButton.png')
 };
