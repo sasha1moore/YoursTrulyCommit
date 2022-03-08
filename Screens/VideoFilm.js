@@ -2,7 +2,10 @@ import { StyleSheet, Text, View, FlatList, SafeAreaView, Image, ImageBackground,
 import Images from '../assets/Images';
 import COLORS from '../assets/colors';
 import { useNavigation } from '@react-navigation/native';
-import React, { useState } from "react";
+import React, { useState, useEffect } from 'react';
+import { Camera } from 'expo-camera';
+import { Video } from 'expo-av';
+
 
 export default function VideoFilm() {
   const navigation = useNavigation();
@@ -25,14 +28,39 @@ function Header(){
   return (
     <SafeAreaView style={styles.container}>
       <ImageBackground source={Images.ConfettiBackground} style={styles.background}>
-        
-        <Header></Header>
-          
+        <Header></Header>      
       </ImageBackground>
       </SafeAreaView>
       
   )
 }
+const headerStyles = StyleSheet.create({
+    headerContainer: {
+      flexDirection: 'row', 
+      justifyContent:"space-around", 
+      alignItems: 'center',
+      backgroundColor: COLORS.white
+    },
+    doublebutton: {
+      display: 'flex',
+      flexDirection: 'column',
+      justifyContent: 'center',
+      alignItems: 'center'
+    } ,
+    topbutton: {
+      height: 50,
+      aspectRatio: 1,
+    },
+    toptitle: {
+      width: 200,
+      height: 60, 
+      alignSelf: 'center'
+    }, 
+    topbuttonCart: {
+        height: 50,
+        width: 30
+      }
+  });
 
 const headerStyles = StyleSheet.create({
   headerContainer: {

@@ -8,8 +8,9 @@ import HomeScreen from '../Screens/HomeScreen';
 import { useNavigation } from '@react-navigation/native';
 import React, { useState } from "react";
 import VideoStart from './VideoStart';
-import VideoUpload from './VideoStart';
+import VideoUpload from './VideoUpload';
 import VideoFilm from './VideoStart';
+import FilmVideo from './FilmVideo';
 
 
 
@@ -25,6 +26,7 @@ export default function VideoStack() {
       <Stack.Screen name="VideoStart" component={VideoStart} />
       <Stack.Screen name="VideoUpload" component={VideoUpload} />
       <Stack.Screen name="VideoFilm" component={VideoFilm} />
+      <Stack.Screen name="FilmVideo" component={FilmVideo} />
     </Stack.Navigator>
   );
 }

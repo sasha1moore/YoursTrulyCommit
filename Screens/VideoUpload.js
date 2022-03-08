@@ -7,27 +7,60 @@ import React, { useState } from "react";
 export default function VideoUpload() {
   const navigation = useNavigation();
 
-// make header function
+// // make header function
+// //image picker selection limit is only
+// function upload(){
+//     const selectVideo = ({ setVideoToUpload }) => {
+//         ImagePicker.openPicker({ mediaType: "video" })
+//           .then(setVideoToUpload)
+//           .catch(console.error);
+//       };
+
+//       // Cloud Name: Found on the Dashboard of Cloudinary.
+// //const URL = "https://api.cloudinary.com/v1_1/<CLOUD_NAME>/video/upload";
+// const CLOUDINARY_URL = "cloudinary://719595461294221:7cF74bWE8E5Gr6BV8XPTujH9xHM@yourstruly"
+// // Random Name: Generated After Enabling The Unsigned Uploading.
+// const UPLOAD_PRESET = "wrxyx9uo"; 
+
+// const uploadVideo = (fileInfo, onSuccess, onError) => {
+//   const { name, uri, type } = fileInfo;
+//   let formData = new FormData();
+
+//   if (uri) {
+//     formData.append("file", { name, uri, type });
+//     formData.append("upload_preset", UPLOAD_PRESET);
+//   }
+
+//   axios
+//     .post(URL, formData, {
+//       headers: { "Content-Type": "multipart/form-data" },
+//     })
+//     .then(res => onSuccess(res.data))
+//     .catch(error => onError(error));
+// };
+
+
+// }
+
 function Header(){
   return(
     <View style={headerStyles.headerContainer} >
          <Pressable onPress={() => navigation.goBack()}>
-                    <Image source={Images.BackButton} style={headerStyles.topbutton} />
-              </Pressable>
+          <Image source={Images.BackButton} style={headerStyles.topbutton} />
+        </Pressable>
     <Image
-      style={{ width: 250, height: 28}}
+      style={{ width: 250, height: 28, justifyContent: 'center'}}
       source={Images.YTLogo}
     />   
-      </View>
+    </View>
   )
 }
 
   return (
     <SafeAreaView style={styles.container}>
-      <ImageBackground source={Images.ConfettiBackground} style={styles.background}>
-        
-        <Header></Header>
-          
+      <ImageBackground source={Images.ConfettiBackground} style={styles.background}>       
+        <Header></Header> 
+        <Text>Theoretically, you could upload videos from your camera roll here, but this functionality isn't supported by expo- so go back and take a video on the last screen or simply skip this task:)</Text>  
       </ImageBackground>
       </SafeAreaView>
       
