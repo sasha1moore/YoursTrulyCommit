@@ -1,10 +1,8 @@
 import { StyleSheet, Text, View, FlatList, SafeAreaView, Image, ImageBackground, Pressable, Button, Modal, Alert } from 'react-native';
 import Images from '../assets/Images';
 import COLORS from '../assets/colors';
-import { useNavigation } from '@react-navigation/native';
-import React, { useState } from "react";
-import { roundToNearestPixel } from 'react-native/Libraries/Utilities/PixelRatio';
-import { clickProps } from 'react-native-web/dist/cjs/modules/forwardedProps';
+import React, { useState, useContext } from "react";
+import Context from '../cartContext';
 
 const OPTIONS = [
    // item with index 1
@@ -12,7 +10,7 @@ const OPTIONS = [
     id: 1,
     image: Images.Acrobats,
     title: 'Acrobats',
-    price: '$0',
+    price: '20',
     description: "Lily and Meredith will deliver your gift with a perfomance that is sure to make your recipient's head spin!",
     screenName: 'AcrobatsScreen'
   },
@@ -21,7 +19,7 @@ const OPTIONS = [
     id: 2,
     image: Images.Balloons,
     title: 'Balloons',
-    price: '$10',
+    price: '10',
     description: 'Add a bouquet of balloons to your gift delivery!',
     screenName: 'BalloonsScreen'
   },
@@ -30,7 +28,7 @@ const OPTIONS = [
     id: 3,
     image: Images.Confetti,
     title: 'Confetti',
-    price: '$10',
+    price: '5',
     description: 'Confetti will rain down on your recipient as they recieve their gift!',
     //extraInfo:
     screenName: 'ConfettiScreen'
@@ -38,7 +36,11 @@ const OPTIONS = [
 ]
 
 export default function OptionsScreen({navigation, route}) {
-  //const navigation = useNavigation();
+  const [modalVisible, setModalVisible] = useState(false);
+  const [placeholder, setPlaceholder] = React.useState(0);
+  navigation.addListener("focus", () => setPlaceholder(placeholder + 1));
+  const {myCart, setMyCart} = useContext(Context);
+  const [cart, setCart] = useState(myCart);
 
   const findItemInArray = (array, title) => {
     if (array != null) {
@@ -48,20 +50,9 @@ export default function OptionsScreen({navigation, route}) {
         }
       }
     }
-    
-  
     return false;
   }
 
-   const deleteItem = (index) => {
-     
-        route.params.deleteItem(index);
-       let cartCopy = cart;
-         cartCopy.splice(index, 1);
-         setCart([...cartCopy]);
-       }
-
-// make header function
 function Header(){
   return(
     <View style={headerStyles.headerContainer} >
@@ -76,8 +67,7 @@ function Header(){
         <Pressable onPress={() => navigation.navigate('FAQScreen')}>
               <Image source={Images.FAQButton} style={headerStyles.topbutton} />
         </Pressable>
-        {/* render as pressable or as an image..  */}
-        <Pressable onPress={() => navigation.navigate('CheckoutScreen', {cart: cart, deleteItem: deleteItem})}>
+        <Pressable onPress={() => navigation.navigate('CheckoutScreen')}>
           <Image source={Images.CartTopNav} style={headerStyles.topbuttonCart} />
         </Pressable>
     </View>
@@ -105,67 +95,44 @@ const threeButtonAlert = (navigation) => {
     ]
   );
 }
+    
   
-  console.log(route);
-
-  //this is whatever they've added to their cart
-  const [cart, setCart] = useState(route.params.cart);
-  const [modalVisible, setModalVisible] = useState(false);
-  const [inCart, setInCart] = useState(false);
 
   const renderItem = ({ item }) => {
-
-    // leave for OH: how to find item in cart. 
-
-    
     function press(){
       setModalVisible(true);
-      route.params.addItem(item);
       setCart([...cart, item]);
-      //setButtonPressed(true);
-      //setTimesPressed((current) => current + 1);
+      setMyCart([...myCart, item]);
     }
     return (
-      // <Pressable onPress={() => {navigation.navigate(item.screenName, {
-      //   location: item,
-      //   cart: cart
-      // })}}>
+
         <Pressable>
         <View key={item.id} style={styles.destinations}>
           <Image source={item.image} style={styles.destinationImages}></Image>
           <View style={styles.destinationText}>
             <View style={styles.titleDescription}>
               <Text style={styles.destinationTitle}>{item.title}</Text>
+              <Text style={styles.price}>{'$' + item.price}</Text>
+              
               <Text style={styles.destinationDescription}>{item.description}</Text>
             </View>
             <View style={styles.detailsText}>
-            {/* if ({pressed}}) {
-                <Text>"Added to Cart!"</Text>
-            } */}
-              
-              
-                  {/* <Image source={Images.AddToCart} style={styles.addbutton}  /> */}
-            { findItemInArray(cart, item.title) && 
-                  <Image source={Images.Balloons} style={styles.addbutton}  />
+            { findItemInArray(myCart, item.title) && 
+                <View style={styles.buttonWrap}>
+                  <Image source={Images.GrayedAddButton} style={styles.addbutton}  />
+                </View>
             }
-
-            {!findItemInArray(cart, item.title) &&
+            {!findItemInArray(myCart, item.title) &&
             <View style={styles.buttonWrap}>
               <Pressable onPress= {() => 
                 press()
               } style={styles.pressablewrap}>
-              
               <Image source={Images.AddToCart} style={styles.addbutton}  />
               </Pressable>
               </View>
     
-              }
-                {/* <Text>Add to Cart</Text> */}
-              
+              }     
             </View>
-            {/* <View style={styles.optionDetails}>
-              <Text style={styles.detailsText}>Details</Text>
-            </View> */}
           </View>
         </View>
 
@@ -196,15 +163,11 @@ const threeButtonAlert = (navigation) => {
     );
   }
   
-
   return (
     <SafeAreaView style={styles.container}>
       <ImageBackground source={Images.ConfettiBackground} style={styles.background}>
-        
         <Header></Header>
-
           <View style={styles.horizontalScroll}>
-
             <FlatList
               horizontal
               showsHorizontalScrollIndicator={false}
@@ -212,7 +175,6 @@ const threeButtonAlert = (navigation) => {
               renderItem={renderItem}
             />
           </View>
-          
       </ImageBackground>
       </SafeAreaView>
       
@@ -296,6 +258,12 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     fontSize: 20,
     marginBottom: 10,
+  },
+  price: {
+    color: COLORS.mainPink,
+    fontSize: 18,
+    marginBottom: 10,
+    fontWeight: '600'
   },
   destinationDescription: {
     color: COLORS.orange,

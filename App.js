@@ -10,12 +10,17 @@ import FAQScreen from './Screens/FAQScreen'
 import ReviewOrder from './Screens/ReviewOrder';
 import ConfirmedOrder from './Screens/ConfirmedOrder';
 import NextSteps from './Screens/NextSteps';
+import Context from './cartContext';
+import { ContextProvider } from './cartContext';
 
 const Stack = createStackNavigator();
 
 export default function App() {
+  const [items, setItems] = React.useState([]);
   return (
+    <ContextProvider value={{myCart: items, setMyCart: setItems}}>
     <NavigationContainer>
+      
       <Stack.Navigator screenOptions= {() => ({
         headerShown: false,
       })}>
@@ -28,7 +33,10 @@ export default function App() {
       <Stack.Screen name="ConfirmedOrderScreen" component={ConfirmedOrder} />
       <Stack.Screen name="NextStepsScreen" component={NextSteps} />
       </Stack.Navigator>
+      
     </NavigationContainer>
+    </ContextProvider>
+    
   );
 }
 

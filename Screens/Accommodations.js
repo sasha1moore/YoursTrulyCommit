@@ -1,8 +1,10 @@
 import { StyleSheet, ScrollView, Modal, Text, SafeAreaView, View, Image, Alert, ImageBackground } from "react-native";
 import {Pressable, FlatList} from 'react-native';
 import React from "react";
+import { useContext } from "react";
 import Images from '../assets/Images';
 import COLORS from "../assets/colors";
+import Context from '../cartContext';
 
 const data = [
     {
@@ -44,16 +46,12 @@ const data = [
 ]
 
 const Accomodations = ({navigation, route}) => {
-    const [cart, setCart] = React.useState(route.params.accommodateCart);
+    let {myCart, setMyCart} = useContext(Context);
     const [modalVisible, setModalVisible] = React.useState(false);
+    const [numPressed, setPressed] = React.useState(0); // only using a number to trigger rerenders
+    const [placeholder, setPlaceholder] = React.useState(0);
+    navigation.addListener("focus", () => setPlaceholder(placeholder + 1));
 
-    const deleteItem = (index) => {
-        route.params.deleteAccomItem(index);
-        let cartCopy = cart;
-        cartCopy.splice(index, 1);
-        setCart([...cartCopy]);
-      }
-      
     function Header(){
         return(
           <View style={headerStyles.headerContainer} >
@@ -69,7 +67,10 @@ const Accomodations = ({navigation, route}) => {
                     <Image source={Images.FAQButton} style={headerStyles.topbutton} />
               </Pressable>
               {/* change the cart here */}
-              <Pressable onPress={() => navigation.navigate('CheckoutScreen', {accomCart: cart, deleteAccomItem: deleteItem})}>
+              {/* <Pressable onPress={() => navigation.navigate('CheckoutScreen', {accomCart: cart, deleteAccomItem: deleteItem})}>
+                <Image source={Images.CartTopNav} style={headerStyles.topbutton} />
+              </Pressable> */}
+              <Pressable onPress={() => navigation.navigate('CheckoutScreen')}>
                 <Image source={Images.CartTopNav} style={headerStyles.topbutton} />
               </Pressable>
           </View>
@@ -98,30 +99,22 @@ const Accomodations = ({navigation, route}) => {
         );
       }
 
-      
-
-      const [numPressed, setPressed] = React.useState(0); // only using a number to trigger rerenders
-
       const render = ({item}) => {
-
         const findItemInArray = (array, title) => {
             for (let i = 0; i < array.length; i++) {
               if(array[i].title === title) {
                 return true;
               }
             }
-          
             return false;
           }
-        const inCart = findItemInArray(cart, item.title);
+        const inCart = findItemInArray(myCart, item.title);
         const itemPress = () => {
             if (!inCart) {
                 item.isSelect = !item.isSelect;
                 setPressed(numPressed => numPressed + 1);
             }
-            
         }
-
 
           return (
               <Pressable onPress={() => itemPress()}>
@@ -138,22 +131,18 @@ const Accomodations = ({navigation, route}) => {
           );
       }
 
-      const add = () => {
-          // iteratre through options
-          // add the ones that are selected to cart 
+      const add = () => { 
           setModalVisible(true);
-          let tempArray = [];
+          let tempArray = myCart;
           for (let i = 0; i < data.length; i++) {
               if (data[i].isSelect) {
-                  data[i].isSelect  = false;
-                  tempArray.push(data[i]);
-                  route.params.addAccommItem(data[i]);
+                data[i].isSelect  = false;
+                tempArray.push(data[i]);
               }
           }
-          setCart([...cart, ...tempArray])
-          
-
+          setMyCart(tempArray);
       }
+      
   return (
     <SafeAreaView style={styles.container}>  
       <ImageBackground source={Images.ConfettiBackground} resizeMode="cover" style={styles.back}>

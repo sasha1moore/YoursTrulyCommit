@@ -1,19 +1,22 @@
 import { StyleSheet, Text, SafeAreaView, View, ImageBackground, Image, Alert } from "react-native";
 import {Pressable, FlatList} from 'react-native';
-import {React, useState} from "react";
+import { useState, useContext, useEffect} from "react";
 import Images from "../assets/Images";
 import CartItem from "../Components/CartItem";
 import COLORS from '../assets/colors';
+import Context from '../cartContext';
 
 const CheckoutScreen = ({navigation, route}) => {
-  const [cart, setCart] = useState(route.params.cart);
-  const [accomodateCart, setAccommodateCart] = useState(route.params.accomCart);
   
+  let {myCart, setMyCart} = useContext(Context);
+  const [cart, setCart] = useState(0);
+   
   function press(index){
-    route.params.deleteItem(index)
-    let cartCopy = cart;
+    console.log("inside remove press");
+    let cartCopy = myCart;
     cartCopy.splice(index, 1);
-    setCart([...cartCopy]);
+    setMyCart(cartCopy);
+    setCart(cart + 1);
   }
     const renderItem = ({ item, index }) => (
 
@@ -29,40 +32,13 @@ const CheckoutScreen = ({navigation, route}) => {
               <Pressable style={styles.pressable} onPress={() => press(index)}>
                   <Text style={styles.pressText}>remove</Text>
               </Pressable>
-              <Text style={styles.maintext}>{item.price}</Text>
+              <Text style={styles.maintext}>{'$' +item.price}</Text>
           </View>
       </View>
     </View>
       );
 
-      function accomPress(index){
-        route.params.deleteAccomItem(index);
-        let cartCopy = accomodateCart;
-        cartCopy.splice(index, 1);
-        setAccommodateCart([...cartCopy]);
-      }
-      const renderAccommodateItem = ({item, index}) => {
-        return (
-<View style={styles.item} >
-      <View style={styles.horizContainer}>
-          <View style={{width: 200}}>
-            <Text style={styles.maintext}>{item.title}</Text>
-          </View>
-          
-          <View style={styles.editAndPrice}>
-              <Pressable style={styles.pressable} onPress={() => console.log('edit was pressed!')}>
-                  <Text style={styles.pressText}>edit</Text>
-              </Pressable>
-              <Pressable style={styles.pressable} onPress={() => accomPress(index)}>
-                  <Text style={styles.pressText}>remove</Text>
-              </Pressable>
-              <Text style={styles.maintext}>{'$' + item.price}</Text>
-          </View>
-      </View>
-    </View>
-        );
-        
-      }
+      
       function Header(){
         return(
           <View style={headerStyles.headerContainer} >
@@ -104,45 +80,16 @@ const CheckoutScreen = ({navigation, route}) => {
           ]
         );
       }
-      //Need to find the index we want to delete: some kind of search again- iterating through cart to find index of item we want to delete
 
-      const allLists = [
-        {
-          name: "add-ons",
-          data: cart,
-          r: renderItem,
-          id: 100
-        },
-        {
-          name: "accomodations",
-          data: accomodateCart,
-          r: renderAccommodateItem,
-          id: 200
-        }
-      ]
-
-      const renderAllFlatLists = ({item}) => {
-        console.log("attempting to log a flat last with name " + item.name);
-        console.log(item.data);
-        return (
-          <FlatList
-            data={item.data}
-            renderItem={item.r}
-            keyExtractor={item => item.id}/>
-        )
-      }
       let totalPrice = 0;
-      if (cart != null) {
-        for (let i = 0; i < cart.length; i++) {
-          const price = (cart[i].price).substring(1);
+
+      if (myCart != null) {
+        for (let i = 0; i < myCart.length; i++) {
+          const price = myCart[i].price;
           totalPrice += parseInt(price);
         }
       }
-      if (accomodateCart != null) {
-        for (let i = 0; i < accomodateCart.length; i++) {
-          totalPrice += parseInt(accomodateCart[i].price);
-        }
-      }
+      
       
   return (
     <SafeAreaView style={styles.container}> 
@@ -152,12 +99,12 @@ const CheckoutScreen = ({navigation, route}) => {
         <View style={styles.shoppingcart}>
             <Image style={styles.cartimage} source= {Images.Cart} />
         </View>
-        <View style={styles.list}>
         
+        
+        <View style={styles.list}>
         <FlatList
-          data={allLists}
-          renderItem={renderAllFlatLists}
-          keyExtractor={item => item.id}/>
+          data={myCart}
+          renderItem={renderItem}/>
         </View>
         <View style={styles.bottom}>
                 <View style={styles.priceWrapper}>
@@ -276,7 +223,7 @@ checkout: {
 },
 item: {
     borderRadius: 20,
-    width: 350,
+    width: '100%',
     backgroundColor: COLORS.secondaryPink,
     justifyContent: 'center',
     color: COLORS.mainPink,

@@ -14,12 +14,6 @@ const Stack = createStackNavigator();
 
 export default function OptionsStack({navigation, route}) {
 
-  const addItem = (item) => {
-    route.params.addItem();
-  };
-  const deleteItem = (item) => {
-    route.params.deleteItem();
-  }
   console.log("inside options stack");
   console.log(route);
   return (
