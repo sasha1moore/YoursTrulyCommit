@@ -9,11 +9,33 @@ import { NavigationContainer } from '@react-navigation/native';
 import Accomodations from "./Accommodations";
 import COLORS from '../assets/colors';
 import VideoStack from "./VideoStack";
+import OptionsScreen from './OptionsScreen';
 const Tab = createBottomTabNavigator();
 const TabNav = () => {
   //props.route.params();
+  const [addOnCart, setAddOnCart] = React.useState([]);
+  const addAddOnItem = (item) => {
+    setAddOnCart([...addOnCart, item]);
+  };
+  const deleteAddOnItem = (index) => {   
+    let cartCopy = addOnCart;
+      cartCopy.splice(index, 1);
+      setAddOnCart([...cartCopy]);
+    };
+
+
+  const [accomodateCart, setAccommodateCart] = React.useState([]);
+  const addAccommItem = (item) => {
+    setAccommodateCart([...accomodateCart, item]);
+  }
+  const deleteAccomItem = (index) => {
+    let cartCopy = accomodateCart;
+    cartCopy.splice(index, 1);
+    setAccommodateCart([...cartCopy]);
+  }
+
   return (
-<Tab.Navigator
+    <Tab.Navigator
         screenOptions={({ route }) => ({
           tabBarIcon: ({ focused, color, size }) => {
             let iconName;
@@ -36,8 +58,8 @@ const TabNav = () => {
         })}
       >
         <Tab.Screen name= "Video" component={VideoStack} />
-        <Tab.Screen name= "Add-ons" component={OptionsStack} />
-        <Tab.Screen name= "Accomodate" component={Accomodations} />
+        <Tab.Screen name= "Add-ons" component={OptionsScreen} initialParams={{cart: addOnCart, deleteItem: deleteAddOnItem, addItem: addAddOnItem, accommodateCart: accomodateCart, deleteAccomItem: deleteAccomItem, addAccommItem: addAccommItem}}/>
+        <Tab.Screen name= "Accomodate" component={Accomodations} initialParams={{cart: addOnCart, deleteItem: deleteAddOnItem, addItem: addAddOnItem, accommodateCart: accomodateCart, deleteAccomItem: deleteAccomItem, addAccommItem: addAccommItem}}/>
       </Tab.Navigator>
   );
 };

@@ -44,9 +44,16 @@ const data = [
 ]
 
 const Accomodations = ({navigation, route}) => {
-    const [cart, setCart] = React.useState([]);
+    const [cart, setCart] = React.useState(route.params.accommodateCart);
     const [modalVisible, setModalVisible] = React.useState(false);
 
+    const deleteItem = (index) => {
+        route.params.deleteAccomItem(index);
+        let cartCopy = cart;
+        cartCopy.splice(index, 1);
+        setCart([...cartCopy]);
+      }
+      
     function Header(){
         return(
           <View style={headerStyles.headerContainer} >
@@ -62,7 +69,7 @@ const Accomodations = ({navigation, route}) => {
                     <Image source={Images.FAQButton} style={headerStyles.topbutton} />
               </Pressable>
               {/* change the cart here */}
-              <Pressable onPress={() => navigation.navigate('CheckoutScreen', {cart: cart})}>
+              <Pressable onPress={() => navigation.navigate('CheckoutScreen', {accomCart: cart, deleteAccomItem: deleteItem})}>
                 <Image source={Images.CartTopNav} style={headerStyles.topbutton} />
               </Pressable>
           </View>
@@ -140,9 +147,11 @@ const Accomodations = ({navigation, route}) => {
               if (data[i].isSelect) {
                   data[i].isSelect  = false;
                   tempArray.push(data[i]);
+                  route.params.addAccommItem(data[i]);
               }
           }
           setCart([...cart, ...tempArray])
+          
 
       }
   return (

@@ -12,14 +12,23 @@ import React, { useState } from "react";
 
 const Stack = createStackNavigator();
 
-export default function OptionsStack() {
+export default function OptionsStack({navigation, route}) {
+
+  const addItem = (item) => {
+    route.params.addItem();
+  };
+  const deleteItem = (item) => {
+    route.params.deleteItem();
+  }
+  console.log("inside options stack");
+  console.log(route);
   return (
     <Stack.Navigator
       screenOptions= {() => ({
         headerShown: false,
         //add buttons inside of you header here
       })}>
-      <Stack.Screen name="Add-ons!" component={OptionsScreen} 
+      <Stack.Screen name="Add-ons!" component={OptionsScreen} initialParams={{cart: route.params.cart, deleteItem: route.params.deleteItem, addItem: route.params.addItem, accommodateCart: route.params.accomodateCart, deleteAccomItem: route.params.deleteAccomItem, addAccommItem: route.params.addAccommItem}}
       />
       <Stack.Screen name="AcrobatsScreen" component={OptionInformation} 
         options={{

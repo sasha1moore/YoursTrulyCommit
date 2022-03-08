@@ -3,6 +3,8 @@ import Images from '../assets/Images';
 import COLORS from '../assets/colors';
 import { useNavigation } from '@react-navigation/native';
 import React, { useState } from "react";
+import { roundToNearestPixel } from 'react-native/Libraries/Utilities/PixelRatio';
+import { clickProps } from 'react-native-web/dist/cjs/modules/forwardedProps';
 
 const OPTIONS = [
    // item with index 1
@@ -35,21 +37,25 @@ const OPTIONS = [
   }
 ]
 
-export default function OptionsScreen() {
-  const navigation = useNavigation();
+export default function OptionsScreen({navigation, route}) {
+  //const navigation = useNavigation();
 
   const findItemInArray = (array, title) => {
-    for (let i = 0; i < array.length; i++) {
-      if(array[i].title === title) {
-        return true;
+    if (array != null) {
+      for (let i = 0; i < array.length; i++) {
+        if(array[i].title === title) {
+          return true;
+        }
       }
     }
+    
   
     return false;
   }
 
    const deleteItem = (index) => {
-
+     
+        route.params.deleteItem(index);
        let cartCopy = cart;
          cartCopy.splice(index, 1);
          setCart([...cartCopy]);
@@ -100,10 +106,10 @@ const threeButtonAlert = (navigation) => {
   );
 }
   
-
+  console.log(route);
 
   //this is whatever they've added to their cart
-  const [cart, setCart] = useState([]);
+  const [cart, setCart] = useState(route.params.cart);
   const [modalVisible, setModalVisible] = useState(false);
   const [inCart, setInCart] = useState(false);
 
@@ -114,6 +120,7 @@ const threeButtonAlert = (navigation) => {
     
     function press(){
       setModalVisible(true);
+      route.params.addItem(item);
       setCart([...cart, item]);
       //setButtonPressed(true);
       //setTimesPressed((current) => current + 1);

@@ -7,19 +7,21 @@ import COLORS from '../assets/colors';
 
 const CheckoutScreen = ({navigation, route}) => {
   const [cart, setCart] = useState(route.params.cart);
-
+  const [accomodateCart, setAccommodateCart] = useState(route.params.accomCart);
+  
   function press(index){
     route.params.deleteItem(index)
     let cartCopy = cart;
     cartCopy.splice(index, 1);
     setCart([...cartCopy]);
-    //setTimesPressed((current) => current + 1);
   }
     const renderItem = ({ item, index }) => (
 
       <View style={styles.item} >
       <View style={styles.horizContainer}>
-          <Text style={styles.maintext}>{item.title}</Text>
+          <View style={{width: 200}}>
+            <Text style={styles.maintext}>{item.title}</Text>
+          </View>
           <View style={styles.editAndPrice}>
               <Pressable style={styles.pressable} onPress={() => console.log('edit was pressed!')}>
                   <Text style={styles.pressText}>edit</Text>
@@ -27,14 +29,40 @@ const CheckoutScreen = ({navigation, route}) => {
               <Pressable style={styles.pressable} onPress={() => press(index)}>
                   <Text style={styles.pressText}>remove</Text>
               </Pressable>
-              <Text style={styles.maintext}>{'$'}</Text>
+              <Text style={styles.maintext}>{item.price}</Text>
           </View>
       </View>
     </View>
-
-
-      //<CartItem name={item.title} deleteItem = {route.params.deleteItem} index = {index} />
       );
+
+      function accomPress(index){
+        route.params.deleteAccomItem(index);
+        let cartCopy = accomodateCart;
+        cartCopy.splice(index, 1);
+        setAccommodateCart([...cartCopy]);
+      }
+      const renderAccommodateItem = ({item, index}) => {
+        return (
+<View style={styles.item} >
+      <View style={styles.horizContainer}>
+          <View style={{width: 200}}>
+            <Text style={styles.maintext}>{item.title}</Text>
+          </View>
+          
+          <View style={styles.editAndPrice}>
+              <Pressable style={styles.pressable} onPress={() => console.log('edit was pressed!')}>
+                  <Text style={styles.pressText}>edit</Text>
+              </Pressable>
+              <Pressable style={styles.pressable} onPress={() => accomPress(index)}>
+                  <Text style={styles.pressText}>remove</Text>
+              </Pressable>
+              <Text style={styles.maintext}>{'$' + item.price}</Text>
+          </View>
+      </View>
+    </View>
+        );
+        
+      }
       function Header(){
         return(
           <View style={headerStyles.headerContainer} >
@@ -78,6 +106,44 @@ const CheckoutScreen = ({navigation, route}) => {
       }
       //Need to find the index we want to delete: some kind of search again- iterating through cart to find index of item we want to delete
 
+      const allLists = [
+        {
+          name: "add-ons",
+          data: cart,
+          r: renderItem,
+          id: 100
+        },
+        {
+          name: "accomodations",
+          data: accomodateCart,
+          r: renderAccommodateItem,
+          id: 200
+        }
+      ]
+
+      const renderAllFlatLists = ({item}) => {
+        console.log("attempting to log a flat last with name " + item.name);
+        console.log(item.data);
+        return (
+          <FlatList
+            data={item.data}
+            renderItem={item.r}
+            keyExtractor={item => item.id}/>
+        )
+      }
+      let totalPrice = 0;
+      if (cart != null) {
+        for (let i = 0; i < cart.length; i++) {
+          const price = (cart[i].price).substring(1);
+          totalPrice += parseInt(price);
+        }
+      }
+      if (accomodateCart != null) {
+        for (let i = 0; i < accomodateCart.length; i++) {
+          totalPrice += parseInt(accomodateCart[i].price);
+        }
+      }
+      
   return (
     <SafeAreaView style={styles.container}> 
       <ImageBackground source={Images.ConfettiBackground} resizeMode="cover" style={styles.back}>
@@ -87,16 +153,16 @@ const CheckoutScreen = ({navigation, route}) => {
             <Image style={styles.cartimage} source= {Images.Cart} />
         </View>
         <View style={styles.list}>
+        
         <FlatList
-          data={cart}
-          renderItem={renderItem}
-          keyExtractor={item => item.id}
-        />
+          data={allLists}
+          renderItem={renderAllFlatLists}
+          keyExtractor={item => item.id}/>
         </View>
         <View style={styles.bottom}>
                 <View style={styles.priceWrapper}>
                     <View style={styles.totalPrice}>
-                        <Text style={styles.priceText}>Total: $</Text>
+                        <Text style={styles.priceText}>{"Total: $" + totalPrice}</Text>
                     </View>
                 </View>
                 <View style={styles.buttonWrapper}>
