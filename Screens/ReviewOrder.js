@@ -70,8 +70,9 @@ const ReviewOrder = ({navigation, route}) => {
     <SafeAreaView style={styles.container}>  
       <ImageBackground source={Images.ConfettiBackground} resizeMode="cover" style={styles.back}>
         <Header />
+        <ScrollView style={{padding: 20}}>
             <View style={styles.orderSummary}>
-                <ScrollView>
+                
                     <FlatList
                         data={myCart}
                         renderItem={renderSummary}/>
@@ -79,10 +80,17 @@ const ReviewOrder = ({navigation, route}) => {
                         <Text style={styles.celebSumText}>{"Total: $" + totalPrice}</Text>
                     </View>
 
-                </ScrollView>
+                
                 {/* <Text style={styles.celebSumTitle}>celebration summary</Text> */}
                 
             </View>
+            <Image source={Images.ReviewContact} style={{width: '100%', borderRadius: 60, height: 150, marginTop: 10}} />
+            <Image source={Images.ReviewDelivery} style={{width: '100%', borderRadius: 60, height: 340, marginTop: 10}} />
+            <Image source={Images.ReviewDate} style={{width: '100%', borderRadius: 60, height: 100, marginTop: 10}} />
+            <Image source={Images.ReviewPayment} style={{width: '100%', borderRadius: 60, height: 150, marginTop: 10}} />
+            <Image source={Images.ReviewBilling} style={{width: '100%', borderRadius: 60, height: 150, marginTop: 10}} />
+
+            </ScrollView>
         
         <Pressable onPress= {() => navigation.navigate("ConfirmedOrderScreen")} style={styles.pressablewrap}>
                 <View style={styles.buttonWrap}>
@@ -138,14 +146,13 @@ const styles = StyleSheet.create({
     orderSummary: {
         backgroundColor: COLORS.secondaryPink,
         borderRadius: 60,
-        width: '90%',
+        width: '100%',
         alignSelf: 'center',
-        margin: 10,
         padding: 20
     },
     celebSumTitle: {
         color: COLORS.mainPink,
-        fontWeight: '500',
+        fontWeight: '800',
         fontSize: 20,
         paddingBottom: 10,
         letterSpacing: 1

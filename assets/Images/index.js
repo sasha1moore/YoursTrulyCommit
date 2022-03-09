@@ -33,5 +33,9 @@ export default Images = {
   NextStepsWellTakeCare: require('./nextStepsWellTakeCare.png'),
   GoHomeButton: require('./goHomeButton.png'),
   GrayedAddButton: require('./grayedAddToCart.png'),
-  CelebSummary: require('./celebSummaryTitle.png')
+  ReviewContact: require('./ReviewOrderScreenshots/contact.png'),
+  ReviewDelivery: require('./ReviewOrderScreenshots/delivery.png'),
+  ReviewDate: require('./ReviewOrderScreenshots/date.png'),
+  ReviewPayment: require('./ReviewOrderScreenshots/payment.png'),
+  ReviewBilling: require('./ReviewOrderScreenshots/billing.png')
 };
