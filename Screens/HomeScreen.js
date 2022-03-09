@@ -30,9 +30,9 @@ const HomeScreen = ({navigation}) => {
                   <Pressable style={styles.button} onPress={() => navigation.navigate('TabNav')}>
                     <ImageBackground resizeMode="cover" source={Images.StartButton} style={styles.img} />
                   </Pressable>
-                  <Pressable style={styles.button} onPress={() => navigation.navigate('TabNav')}>
+                  {/* <Pressable style={styles.button} onPress={() => navigation.navigate('TabNav')}>
                     <ImageBackground resizeMode="cover" source={Images.ContinueButton} style={styles.img} />
-                  </Pressable>
+                  </Pressable> */}
               </View>
               
             </SafeAreaView>
@@ -72,7 +72,7 @@ const styles = StyleSheet.create({
     },
     mainContainer: {
       flex: 1,
-      justifyContent: 'center',
+      
       alignItems: 'center',
     },
     image: {
@@ -92,6 +92,7 @@ const styles = StyleSheet.create({
       shadowRadius: 1, 
       padding: 10,
       margin: 20,
+      marginTop: '60%'
     },
     img: {
       width: '100%',

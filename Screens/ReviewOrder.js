@@ -1,11 +1,12 @@
 import { StyleSheet, ScrollView, Modal, Text, SafeAreaView, View, Image, Alert, ImageBackground } from "react-native";
 import {Pressable, FlatList} from 'react-native';
-import React from "react";
+import React, { useContext } from "react";
 import Images from '../assets/Images';
 import COLORS from "../assets/colors";
-
+import Context from '../cartContext';
 
 const ReviewOrder = ({navigation, route}) => {
+    const {myCart} = useContext(Context);
 
     function Header(){
         return(
@@ -32,16 +33,16 @@ const ReviewOrder = ({navigation, route}) => {
 
       const threeButtonAlert = (navigation) => {
         Alert.alert(
-          "Would you like to save this celebration?",
+          "Are you sure you want to abandon this celebration?",
           "",
           [
             {
-              text: "Yes, save my celebration",
+              text: "Yes, go back home",
               onPress: () => navigation.navigate('HomeScreen')
             },
-            { text: "No, don't save", onPress: () =>  navigation.navigate('HomeScreen') },
+            // { text: "No, don't save", onPress: () =>  navigation.navigate('HomeScreen') },
             {
-              text: "Cancel",
+              text: "No, let's keep celebrating!",
               onPress: () => console.log("Cancel Pressed"),
               style: "cancel"
             }
@@ -49,12 +50,48 @@ const ReviewOrder = ({navigation, route}) => {
           ]
         );
       }
+      let totalPrice = 0;
 
+      if (myCart != null) {
+        for (let i = 0; i < myCart.length; i++) {
+          const price = myCart[i].price;
+          totalPrice += parseInt(price);
+        }
+      }
+      const renderSummary = ({item}) => {
+          return (
+            <View style={styles.itemContainer}>
+                <Text style={styles.celebSumTitle}>{item.title}</Text>
+                <Text style={styles.celebSumTitle}>{'$' +item.price}</Text>
+            </View>
+          ) 
+      }
   return (
     <SafeAreaView style={styles.container}>  
       <ImageBackground source={Images.ConfettiBackground} resizeMode="cover" style={styles.back}>
         <Header />
-        <Text>Review Order!</Text>
+        <ScrollView style={{padding: 20}}>
+            <View style={styles.orderSummary}>
+                
+                    <FlatList
+                        data={myCart}
+                        renderItem={renderSummary}/>
+                    <View style={styles.priceWrapper}>
+                        <Text style={styles.celebSumText}>{"Total: $" + totalPrice}</Text>
+                    </View>
+
+                
+                {/* <Text style={styles.celebSumTitle}>celebration summary</Text> */}
+                
+            </View>
+            <Image source={Images.ReviewContact} style={{width: '100%', borderRadius: 60, height: 150, marginTop: 10}} />
+            <Image source={Images.ReviewDelivery} style={{width: '100%', borderRadius: 60, height: 340, marginTop: 10}} />
+            <Image source={Images.ReviewDate} style={{width: '100%', borderRadius: 60, height: 100, marginTop: 10}} />
+            <Image source={Images.ReviewPayment} style={{width: '100%', borderRadius: 60, height: 150, marginTop: 10}} />
+            <Image source={Images.ReviewBilling} style={{width: '100%', borderRadius: 60, height: 150, marginTop: 10}} />
+
+            </ScrollView>
+        
         <Pressable onPress= {() => navigation.navigate("ConfirmedOrderScreen")} style={styles.pressablewrap}>
                 <View style={styles.buttonWrap}>
                     <Image source={Images.ConfirmOrderButton} style={styles.confirm}  />
@@ -105,6 +142,35 @@ const styles = StyleSheet.create({
       width: '100%',
       height: '100%',
       
+    },
+    orderSummary: {
+        backgroundColor: COLORS.secondaryPink,
+        borderRadius: 60,
+        width: '100%',
+        alignSelf: 'center',
+        padding: 20
+    },
+    celebSumTitle: {
+        color: COLORS.mainPink,
+        fontWeight: '800',
+        fontSize: 20,
+        paddingBottom: 10,
+        letterSpacing: 1
+    },
+    itemContainer: {
+        display: 'flex',
+        flexDirection: 'row',
+        justifyContent: 'space-between'
+    },  
+    celebSumText: {
+        fontSize: 20,
+        color: COLORS.orange,
+        fontWeight: '700',
+    },
+    priceWrapper: {
+        display: 'flex',
+        flexDirection: 'row',
+        justifyContent: 'flex-end'
     },
     confirm: {
         width: 180,

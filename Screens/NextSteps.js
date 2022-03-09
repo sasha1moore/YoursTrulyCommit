@@ -3,10 +3,11 @@ import {Pressable, FlatList} from 'react-native';
 import React from "react";
 import Images from '../assets/Images';
 import COLORS from "../assets/colors";
+import Context from '../cartContext';
 
 
 const NextSteps = ({navigation, route}) => {
-
+    const {myCart, setMyCart} = React.useContext(Context);
     function Header(){
         return(
           <View style={headerStyles.headerContainer} >
@@ -23,6 +24,10 @@ const NextSteps = ({navigation, route}) => {
         )
       }
 
+      const press = () => {
+          setMyCart([]);
+          navigation.navigate("HomeScreen");
+      }
 
   return (
     <SafeAreaView style={styles.container}>  
@@ -31,7 +36,7 @@ const NextSteps = ({navigation, route}) => {
         <Image source={Images.NextStepsTitle} style={styles.title}/>
         <Image source={Images.NextStepsDirectPackage} style={{width: '90%', height: 160, alignSelf: 'center', borderRadius: 60, marginTop: 50}} />
         <Image source={Images.NextStepsWellTakeCare} style={{width:'90%', height: 280, alignSelf: 'center', borderRadius: 60, margin: 20}} />
-        <Pressable onPress= {() => navigation.navigate("HomeScreen")} style={styles.pressablewrap}>
+        <Pressable onPress= {press} style={styles.pressablewrap}>
                 <View style={styles.buttonWrap}>
                     <Image source={Images.GoHomeButton} style={styles.confirm}  />
                 </View>
