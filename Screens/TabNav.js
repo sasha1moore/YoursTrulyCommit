@@ -10,6 +10,7 @@ import Accomodations from "./Accommodations";
 import COLORS from '../assets/colors';
 import VideoStack from "./VideoStack";
 import OptionsScreen from './OptionsScreen';
+import VideoStart from "./VideoStart";
 const Tab = createBottomTabNavigator();
 
 const TabNav = () => {
@@ -35,7 +36,7 @@ const TabNav = () => {
           headerShown: false,
         })}
       >
-        <Tab.Screen name= "Video" component={VideoStack} />
+        <Tab.Screen name= "Video" component={VideoStart} />
         <Tab.Screen name= "Add-ons" component={OptionsScreen}/>
         <Tab.Screen name= "Accomodate" component={Accomodations}/>
       </Tab.Navigator>

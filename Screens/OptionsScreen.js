@@ -41,6 +41,7 @@ export default function OptionsScreen({navigation, route}) {
   navigation.addListener("focus", () => setPlaceholder(placeholder + 1));
   const {myCart, setMyCart} = useContext(Context);
   const [cart, setCart] = useState(myCart);
+  
 
   const findItemInArray = (array, title) => {
     if (array != null) {
