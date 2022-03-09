@@ -32,5 +32,6 @@ export default Images = {
   NextStepsDirectPackage: require('./nextStepsDirect.png'),
   NextStepsWellTakeCare: require('./nextStepsWellTakeCare.png'),
   GoHomeButton: require('./goHomeButton.png'),
-  GrayedAddButton: require('./grayedAddToCart.png')
+  GrayedAddButton: require('./grayedAddToCart.png'),
+  CelebSummary: require('./celebSummaryTitle.png')
 };

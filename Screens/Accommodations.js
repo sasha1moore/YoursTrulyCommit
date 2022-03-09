@@ -81,16 +81,16 @@ const Accomodations = ({navigation, route}) => {
 
       const threeButtonAlert = (navigation) => {
         Alert.alert(
-          "Would you like to save this celebration?",
+          "Are you sure you want to abandon this celebration?",
           "",
           [
             {
-              text: "Yes, save my celebration",
+              text: "Yes, go back home",
               onPress: () => navigation.navigate('HomeScreen')
             },
-            { text: "No, don't save", onPress: () =>  navigation.navigate('HomeScreen') },
+            // { text: "No, don't save", onPress: () =>  navigation.navigate('HomeScreen') },
             {
-              text: "Cancel",
+              text: "No, let's keep celebrating!",
               onPress: () => console.log("Cancel Pressed"),
               style: "cancel"
             }
@@ -98,7 +98,6 @@ const Accomodations = ({navigation, route}) => {
           ]
         );
       }
-
       const render = ({item}) => {
         const findItemInArray = (array, title) => {
             for (let i = 0; i < array.length; i++) {

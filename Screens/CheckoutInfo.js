@@ -30,16 +30,16 @@ const CheckoutInfo = ({navigation, route}) => {
 
   const threeButtonAlert = (navigation) => {
     Alert.alert(
-      "Do you want to abandon your cart?",
+      "Are you sure you want to abandon this celebration?",
       "",
       [
         {
-          text: "Yes, forget about this cart!",
+          text: "Yes, go back home",
           onPress: () => navigation.navigate('HomeScreen')
         },
-        { text: "No, please save my cart!", onPress: () =>  navigation.navigate('HomeScreen') },
+        // { text: "No, don't save", onPress: () =>  navigation.navigate('HomeScreen') },
         {
-          text: "Cancel",
+          text: "No, let's keep celebrating!",
           onPress: () => console.log("Cancel Pressed"),
           style: "cancel"
         }
