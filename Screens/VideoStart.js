@@ -197,7 +197,7 @@ const findItemInArray = (array, title) => {
         <Header />
         {/* SHOW INDICATOR ONLY WHEN ISRECORDING IS TRUE */}
         {/* <Text>{isRecording && "Recording"}</Text> */}
-        {isRecording && (<Image source={Images.HomeButton} style={headerStyles.topbutton} />)}
+        {isRecording && (<Image source={Images.Recording} style={{height: 60, width: 200, alignSelf: 'center', marginBottom: -25}} />)}
         {/* from FilmVideo.js */}
         {!record && (
           <View style={styles.cameraContainer}>
@@ -250,7 +250,7 @@ const findItemInArray = (array, title) => {
             //<Button title="Discard video" onPress={() => setRecord(null)} />
             //play pause button, then discard video button
             <View>
-            <View style= {{flexDirection: 'row', justifyContent: "space-around", marginTop: 50}}>
+            <View style= {{flexDirection: 'row', justifyContent: "center", alignSelf:'center', marginTop: 50, marginLeft: -49}}>
               <View style={styles.smallButton}>
                 <Pressable 
                 onPress={() =>
@@ -259,7 +259,7 @@ const findItemInArray = (array, title) => {
                       : video.current.playAsync()
                   } 
                   style={styles.pressablewrap} >
-                  <Image source={status.isPlaying ? Images.Play : Images.Pause} style={styles.smallButton}  />
+                  <Image source={status.isPlaying ? Images.Pause : Images.Play} style={styles.smallButton}  />
                 </Pressable>
               </View>
               <View style={styles.smallButton}>
@@ -271,7 +271,7 @@ const findItemInArray = (array, title) => {
               </View>
             </View>
 
-<View style={styles.detailsText}>
+          <View style={styles.detailsText}>
             { findItemInArray(myCart, videoObject.title) && 
                 <View style={styles.buttonWrap}>
                   <Image source={Images.GrayedAddButton} style={styles.addbutton}  />
@@ -318,7 +318,8 @@ const findItemInArray = (array, title) => {
 )}
 {!record && (
   //flip video
-        <View style={{flexDirection: 'row', justifyContent: "space-around", marginTop: 50}}>
+        <View style={{flexDirection: 'row', justifyContent: "center", alignSelf:'center', marginTop: 50, marginLeft: -49
+        }}>
           <View style={styles.smallButton}>
             <Pressable onPress= {() => {
               setType(
@@ -399,7 +400,7 @@ const styles = StyleSheet.create({
     marginTop: 30,
     width: 300,
     height: 400,
-    backgroundColor: "red"
+    //backgroundColor: "red"
     //flexDirection: 'row',
     //marginTop: 100,
     //alignItems: 'flex-end',
@@ -431,8 +432,9 @@ const styles = StyleSheet.create({
     
   },
   addbutton: {
-    width: 120,
-    height: 40,
+    width: 200,
+    height: 70,
+    marginLeft: -39,
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 20,
@@ -486,12 +488,16 @@ const styles = StyleSheet.create({
     //justifyContent: "space-around",
   },
   smallButton: {
-    height: 50,
+    height: 70,
+    marginTop: -10,
+    marginLeft: 15,
+    marginRight: 15,
     aspectRatio: 1,
     shadowColor: COLORS.black,
     justifyContent: "center",
     //justifyContent: "space-around",
     alignSelf: "center",
+    borderRadius: 10,
     //marginBottom: 100,
     shadowOffset: { width: 0, height: 1 },
     shadowOpacity: 0.8,

@@ -37,5 +37,12 @@ export default Images = {
   ReviewDelivery: require('./ReviewOrderScreenshots/delivery.png'),
   ReviewDate: require('./ReviewOrderScreenshots/date.png'),
   ReviewPayment: require('./ReviewOrderScreenshots/payment.png'),
-  ReviewBilling: require('./ReviewOrderScreenshots/billing.png')
+  ReviewBilling: require('./ReviewOrderScreenshots/billing.png'),
+  Play: require('./VideoScreenshots/play.png'),
+  Pause: require('./VideoScreenshots/pause.png'),
+  Record: require('./VideoScreenshots/record.png'),
+  Stop: require('./VideoScreenshots/stop.png'),
+  Flip: require('./VideoScreenshots/flip.png'),
+  Discard: require('./VideoScreenshots/discard.png'),
+  Recording: require('./VideoScreenshots/recording.png'),
 };

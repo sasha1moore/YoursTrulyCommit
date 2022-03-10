@@ -62,33 +62,6 @@ const headerStyles = StyleSheet.create({
       }
   });
 
-const headerStyles = StyleSheet.create({
-  headerContainer: {
-    flexDirection: 'row', 
-    justifyContent:"space-around", 
-    alignItems: 'center',
-    backgroundColor: COLORS.white
-  },
-  doublebutton: {
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'center',
-    alignItems: 'center'
-  } ,
-  topbutton: {
-    height: 50,
-    aspectRatio: 1,
-  },
-  toptitle: {
-    width: 250,
-    height: 30, 
-    alignSelf: 'center'
-  }, 
-  topbuttonCart: {
-    height: 50,
-    width: 30
-  }
-});
 
 const styles = StyleSheet.create({
   container: {
