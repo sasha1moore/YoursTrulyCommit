@@ -9,7 +9,7 @@ const OPTIONS = [
   {
     id: 1,
     image: Images.Acrobats,
-    title: 'ccrobats',
+    title: 'acrobats',
     price: '20',
     description: "Lily and Meredith will deliver your gift with a perfomance that is sure to make your recipient's head spin!",
     screenName: 'AcrobatsScreen'

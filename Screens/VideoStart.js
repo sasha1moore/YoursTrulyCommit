@@ -26,30 +26,30 @@ const videoObject =
  }
 
 //This is the player I want on the start screen, starts out black and then plays, so need variable for video passing in.
-function Header(navigation) {
-  return (
-    <View style={headerStyles.headerContainer}>
-      <Pressable onPress={() => threeButtonAlert(navigation)}>
-        <Image source={Images.HomeButton} style={headerStyles.topbutton} />
-      </Pressable>
-      <Image style={{ width: 250, height: 28 }} source={Images.YTLogo} />
-      <View style={headerStyles.doublebutton}>
-        <Pressable onPress={() => navigation.navigate("FAQScreen")}>
-          <Image source={Images.FAQButton} style={headerStyles.topbutton} />
-        </Pressable>
-        <Pressable
-          onPress={() => navigation.navigate("CheckoutScreen", { cart: cart })}
-        >
-          <Image
-            source={Images.CartTopNav}
-            style={headerStyles.topbuttonCart}
-          />
-        </Pressable>
-      </View>
-    </View>
-  );
-}
-const threeButtonAlert = (navigation) => {
+// function Header(navigation) {
+//   return (
+//     <View style={headerStyles.headerContainer}>
+//       <Pressable onPress={() => threeButtonAlert(navigation)}>
+//         <Image source={Images.HomeButton} style={headerStyles.topbutton} />
+//       </Pressable>
+//       <Image style={{ width: 250, height: 28 }} source={Images.YTLogo} />
+//       <View style={headerStyles.doublebutton}>
+//         <Pressable onPress={() => navigation.navigate("FAQScreen")}>
+//           <Image source={Images.FAQButton} style={headerStyles.topbutton} />
+//         </Pressable>
+//         <Pressable
+//           onPress={() => navigation.navigate("CheckoutScreen", { cart: cart })}
+//         >
+//           <Image
+//             source={Images.CartTopNav}
+//             style={headerStyles.topbuttonCart}
+//           />
+//         </Pressable>
+//       </View>
+//     </View>
+//   );
+// }
+const threeButtonAlert = (navigation, setMyCart) => {
   Alert.alert(
     "Are you sure you want to abandon this celebration?",
     "",
@@ -92,7 +92,7 @@ const VideoStart = ({ route, navigation }) => {
 function Header() {
   return (
     <View style={headerStyles.headerContainer}>
-      <Pressable onPress={() => threeButtonAlert(navigation)}>
+      <Pressable onPress={() => threeButtonAlert(navigation, setMyCart)}>
         <Image source={Images.HomeButton} style={headerStyles.topbutton} />
       </Pressable>
       <Image style={{ width: 250, height: 28 }} source={Images.YTLogo} />
