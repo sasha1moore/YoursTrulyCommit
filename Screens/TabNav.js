@@ -24,7 +24,7 @@ const TabNav = () => {
               iconName = 'camera'
             } else if (route.name === 'Add-ons') {
               iconName = 'star'
-            } else if (route.name === 'Accomodate') {
+            } else if (route.name === 'Accommodate') {
               iconName = "person"
                return <Ionicons name={iconName} size={size} color={color} />;
             }
@@ -38,7 +38,7 @@ const TabNav = () => {
       >
         <Tab.Screen name= "Video" component={VideoStart} />
         <Tab.Screen name= "Add-ons" component={OptionsScreen}/>
-        <Tab.Screen name= "Accomodate" component={Accomodations}/>
+        <Tab.Screen name= "Accommodate" component={Accomodations}/>
       </Tab.Navigator>
   );
 };

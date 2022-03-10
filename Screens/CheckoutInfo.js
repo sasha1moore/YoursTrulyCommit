@@ -35,7 +35,10 @@ const CheckoutInfo = ({navigation, route}) => {
       [
         {
           text: "Yes, go back home",
-          onPress: () => navigation.navigate('HomeScreen')
+          onPress: () => {
+            setMyCart([]);
+            navigation.navigate('HomeScreen')
+          }
         },
         // { text: "No, don't save", onPress: () =>  navigation.navigate('HomeScreen') },
         {

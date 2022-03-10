@@ -21,7 +21,7 @@ import Context from '../cartContext';
 const videoObject = 
  {
    id: 0,
-   title: 'Video',
+   title: 'video',
    price: '0',
  }
 
@@ -56,7 +56,10 @@ const threeButtonAlert = (navigation) => {
     [
       {
         text: "Yes, go back home",
-        onPress: () => navigation.navigate('HomeScreen')
+        onPress: () => {
+          setMyCart([]);
+          navigation.navigate('HomeScreen')
+        }
       },
       // { text: "No, don't save", onPress: () =>  navigation.navigate('HomeScreen') },
       {
@@ -256,7 +259,10 @@ const findItemInArray = (array, title) => {
           <View style={styles.detailsText}>
             { findItemInArray(myCart, videoObject.title) && 
                 <View style={styles.buttonWrap}>
-                  <Image source={Images.GrayedAddButton} style={styles.addbutton}  />
+                  <Pressable style={styles.pressablewrap}>
+                    <Image source={Images.GrayedAddButton} style={styles.addbutton}  />
+
+                  </Pressable>
                 </View>
             }
             {!findItemInArray(myCart, videoObject.title) &&

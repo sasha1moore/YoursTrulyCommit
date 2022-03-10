@@ -9,7 +9,7 @@ const OPTIONS = [
   {
     id: 1,
     image: Images.Acrobats,
-    title: 'Acrobats',
+    title: 'ccrobats',
     price: '20',
     description: "Lily and Meredith will deliver your gift with a perfomance that is sure to make your recipient's head spin!",
     screenName: 'AcrobatsScreen'
@@ -18,7 +18,7 @@ const OPTIONS = [
   { 
     id: 2,
     image: Images.Balloons,
-    title: 'Balloons',
+    title: 'balloons',
     price: '10',
     description: 'Add a bouquet of balloons to your gift delivery!',
     screenName: 'BalloonsScreen'
@@ -27,7 +27,7 @@ const OPTIONS = [
   { 
     id: 3,
     image: Images.Confetti,
-    title: 'Confetti',
+    title: 'confetti',
     price: '5',
     description: 'Confetti will rain down on your recipient as they recieve their gift!',
     //extraInfo:
@@ -84,7 +84,10 @@ const threeButtonAlert = (navigation) => {
     [
       {
         text: "Yes, go back home",
-        onPress: () => navigation.navigate('HomeScreen')
+        onPress: () => {
+          setMyCart([]);
+          navigation.navigate('HomeScreen')
+        }
       },
       // { text: "No, don't save", onPress: () =>  navigation.navigate('HomeScreen') },
       {
