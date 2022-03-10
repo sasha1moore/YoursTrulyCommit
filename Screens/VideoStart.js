@@ -50,28 +50,23 @@ function Header(navigation) {
   );
 }
 const threeButtonAlert = (navigation) => {
-  Alert.alert("Would you like to save this celebration?", "", [
-    {
-      text: "Yes",
-      onPress: () => navigation.navigate("HomeScreen")
-    },
-    {
-      text: "Cancel",
-      onPress: () => console.log("Cancel Pressed"),
-      style: "cancel"
-    }
-  ]);
-};
-
-const findItemInArray = (array, title) => {
-  if (array != null) {
-    for (let i = 0; i < array.length; i++) {
-      if(array[i].title === title) {
-        return true;
+  Alert.alert(
+    "Are you sure you want to abandon this celebration?",
+    "",
+    [
+      {
+        text: "Yes, go back home",
+        onPress: () => navigation.navigate('HomeScreen')
+      },
+      // { text: "No, don't save", onPress: () =>  navigation.navigate('HomeScreen') },
+      {
+        text: "No, let's keep celebrating!",
+        onPress: () => console.log("Cancel Pressed"),
+        style: "cancel"
       }
-    }
-  }
-  return false;
+      
+    ]
+  );
 }
 
 const VideoStart = ({ route, navigation }) => {
@@ -114,19 +109,6 @@ function Header() {
     </View>
   );
 }
-const threeButtonAlert = () => {
-  Alert.alert("Would you like to save this celebration?", "", [
-    {
-      text: "Yes",
-      onPress: () => navigation.navigate("HomeScreen")
-    },
-    {
-      text: "Cancel",
-      onPress: () => console.log("Cancel Pressed"),
-      style: "cancel"
-    }
-  ]);
-};
 
 const findItemInArray = (array, title) => {
   if (array != null) {

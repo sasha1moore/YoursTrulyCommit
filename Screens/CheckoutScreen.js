@@ -26,7 +26,7 @@ const CheckoutScreen = ({navigation, route}) => {
             <Text style={styles.maintext}>{item.title}</Text>
           </View>
           <View style={styles.editAndPrice}>
-              <Pressable style={styles.pressable} onPress={() => console.log('edit was pressed!')}>
+              <Pressable style={styles.pressable} onPress={() => navigation.goBack()}>
                   <Text style={styles.pressText}>edit</Text>
               </Pressable>
               <Pressable style={styles.pressable} onPress={() => press(index)}>
