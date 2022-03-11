@@ -1,7 +1,8 @@
 {
   "expo": {
-    "name": "lecture-5b-demo",
-    "slug": "lecture-5b-demo",
+    "name": "yours-truly",
+    "slug": "yours-truly",
+    "owner": "galwan",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
